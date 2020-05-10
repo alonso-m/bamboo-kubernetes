@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bamboo
+  labels:
+    app: bamboo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bamboo
+  template:
+    metadata:
+      labels:
+        app: bamboo
+    spec:    
+      hostname: bamboo
+      initContainers:
+      - name: change-home-ownership
+        image: busybox
+        command:
+        - chown
+        - -R
+        - 1000:1000
+        - /var/atlassian/application-data/bamboo
+        volumeMounts:
+        - name: bamboo-pv
+          mountPath: "/var/atlassian/application-data/bamboo"
+      containers:
+      - name: bamboo
+        image: maikimaiko/arm64v8-atlassian-bamboo-server:6.10.4
+        imagePullPolicy: "IfNotPresent"
+        ports:
+        - containerPort: 8085
+          name: http
+        - containerPort: 54663
+          name: jms
+        volumeMounts:
+        - name: bamboo-pv
+          mountPath: "/var/atlassian/application-data/bamboo"
+        - name: bamboo-server-xml
+          mountPath: "/opt/atlassian/bamboo/conf/server.xml"
+          subPath: "server.xml"
+      volumes:
+      - name: bamboo-pv
+        persistentVolumeClaim:
+          claimName: bamboo-pvc
+      - name: bamboo-server-xml
+        configMap:
+          name: bamboo-server-xml

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: bamboo-pv
+  labels:
+    type: local
+    app: bamboo
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 32Gi
+  accessModes:
+    - ReadWriteMany
+  mountOptions:
+    - lookupcache=pos
+    - noatime
+  nfs:
+    path: /export/ssd/bamboo
+    server: node06
