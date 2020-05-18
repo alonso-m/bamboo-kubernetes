@@ -15,5 +15,5 @@ spec:
     - lookupcache=pos
     - noatime
   nfs:
-    path: /export/ssd/bamboo
-    server: node06
+    path: /zfs/application-data/bamboo
+    server: node05
