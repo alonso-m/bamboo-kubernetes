@@ -16,4 +16,4 @@ spec:
     - noatime
   nfs:
     path: /zfs/application-data/bamboo
-    server: node05
+    server: node06
