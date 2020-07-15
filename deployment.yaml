@@ -6,6 +6,8 @@ metadata:
     app: bamboo
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: bamboo
@@ -28,7 +30,7 @@ spec:
           mountPath: "/var/atlassian/application-data/bamboo"
       containers:
       - name: bamboo
-        image: alonsomiguel/arm64v8-bamboo-server:7.0.3
+        image: alonsomiguel/arm64v8-bamboo-server:7.0.4
         imagePullPolicy: "IfNotPresent"
         ports:
         - containerPort: 8085
@@ -41,6 +43,8 @@ spec:
         - name: bamboo-server-xml
           mountPath: "/opt/atlassian/bamboo/conf/server.xml"
           subPath: "server.xml"
+      nodeSelector:
+        k3s.io/hostname: "node03"
       volumes:
       - name: bamboo-pv
         persistentVolumeClaim:

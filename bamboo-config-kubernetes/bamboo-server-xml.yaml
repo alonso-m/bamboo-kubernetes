@@ -1,0 +1,71 @@
+apiVersion: v1
+data:
+  server.xml: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!--\n   ====================================================================================\n\n
+    \  Atlassian Bamboo Server Edition Tomcat Configuration.\n\n\n   See the following
+    for more information\n\n   https://confluence.atlassian.com/display/BAMBOO/Installing+and+upgrading+Bamboo\n\n
+    \  ====================================================================================\n
+    -->\n<!--\n  Licensed to the Apache Software Foundation (ASF) under one or more\n
+    \ contributor license agreements.  See the NOTICE file distributed with\n  this
+    work for additional information regarding copyright ownership.\n  The ASF licenses
+    this file to You under the Apache License, Version 2.0\n  (the \"License\"); you
+    may not use this file except in compliance with\n  the License.  You may obtain
+    a copy of the License at\n\n      http://www.apache.org/licenses/LICENSE-2.0\n\n
+    \ Unless required by applicable law or agreed to in writing, software\n  distributed
+    under the License is distributed on an \"AS IS\" BASIS,\n  WITHOUT WARRANTIES
+    OR CONDITIONS OF ANY KIND, either express or implied.\n  See the License for the
+    specific language governing permissions and\n  limitations under the License.\n-->\n<Server
+    port=\"8007\" shutdown=\"SHUTDOWN\">\n\n    <!--APR library loader. Documentation
+    at /docs/apr.html -->\n    <Listener className=\"org.apache.catalina.core.AprLifecycleListener\"
+    SSLEngine=\"on\"/>\n    <!-- JMX Support for the Tomcat server. Documentation
+    at /docs/non-existent.html -->\n    <Listener className=\"org.apache.catalina.mbeans.GlobalResourcesLifecycleListener\"/>\n\n
+    \   <!-- Global JNDI resources\n         Documentation at /docs/jndi-resources-howto.html\n
+    \   -->\n\n    <!-- A \"Service\" is a collection of one or more \"Connectors\"
+    that share\n        a single \"Container\" Note:  A \"Service\" is not itself
+    a \"Container\",\n        so you may not define subcomponents such as \"Valves\"
+    at this level.\n        Documentation at /docs/config/service.html\n    -->\n
+    \   <Service name=\"Catalina\">\n\n        <Connector\n                port=\"8085\"\n
+    \               protocol=\"HTTP/1.1\"\n\n                maxThreads=\"150\" minSpareThreads=\"25\"\n
+    \               connectionTimeout=\"20000\"\n                disableUploadTimeout=\"true\"\n
+    \               acceptCount=\"100\"\n\n                enableLookups=\"false\"\n
+    \               maxHttpHeaderSize=\"8192\"\n\n                useBodyEncodingForURI=\"true\"\n
+    \               URIEncoding=\"UTF-8\"\n\t\tsecure=\"true\"\n\t\tscheme=\"https\"\n\t\tproxyName=\"malonso.me\"\n\t\tproxyPort=\"443\"\n
+    \               redirectPort=\"443\">\n            <UpgradeProtocol className=\"org.apache.coyote.http2.Http2Protocol\"
+    />\n        </Connector>\n        <!--\n        ====================================================================================\n
+    \       To run Bamboo via HTTPS:\n             * Uncomment the Connector below\n
+    \            * Execute:\n                 %JAVA_HOME%\\bin\\keytool -genkey -alias
+    tomcat -keyalg RSA (Windows)\n                 $JAVA_HOME/bin/keytool -genkey
+    -alias tomcat -keyalg RSA  (Unix)\n               with a password value of \"changeit\"
+    for both the certificate and the keystore itself.\n             * Restart and
+    visit https://localhost:8443/\n\n             For more info, see :\n              https://confluence.atlassian.com/display/BAMBOO/Securing+Bamboo+with+Tomcat+using+SSL\n
+    \             and\n              http://tomcat.apache.org/tomcat-8.5-doc/ssl-howto.html\n
+    \       ====================================================================================\n
+    \       -->\n        <!--\n        <Connector\n            port=\"8443\"\n\n            maxThreads=\"150\"
+    minSpareThreads=\"25\"\n            connectionTimeout=\"20000\"\n            disableUploadTimeout=\"true\"\n
+    \           acceptCount=\"100\"\n\n            enableLookups=\"false\"\n            maxHttpHeaderSize=\"8192\"\n\n
+    \           useBodyEncodingForURI=\"true\"\n            URIEncoding=\"UTF-8\"\n\n
+    \           scheme=\"https\" secure=\"true\" SSLEnabled=\"true\" sslProtocol=\"TLS\"\n
+    \           clientAuth=\"false\">\n            <UpgradeProtocol className=\"org.apache.coyote.http2.Http2Protocol\"
+    />\n        </Connector> -->\n        <!--\n         ====================================================================================\n
+    \        \n         If you have Apache AJP Connector (mod_ajp) as a proxy in front
+    of Bamboo you should uncomment the following connector configuration line\n\n
+    \        See the following for more information :\n\n            https://confluence.atlassian.com/display/BAMBOO/Securing+Bamboo+with+Apache+using+SSL\n\n
+    \        ====================================================================================\n
+    \       -->\n\n        <!--\n              <Connector port=\"8009\" redirectPort=\"8443\"
+    enableLookups=\"false\" protocol=\"AJP/1.3\" URIEncoding=\"UTF-8\"/>\n        -->\n\n
+    \       <Engine name=\"Catalina\" defaultHost=\"localhost\">\n            <Host
+    name=\"localhost\" appBase=\"webapps\" unpackWARs=\"true\" autoDeploy=\"true\">\n\n\t\t<Context
+    path=\"/bamboo\" docBase=\"${catalina.home}/atlassian-bamboo\" reloadable=\"false\"
+    useHttpOnly=\"true\">\n\n                    <!--<Resource name=\"UserTransaction\"
+    auth=\"Container\" type=\"javax.transaction.UserTransaction\"-->\n                              <!--factory=\"org.objectweb.jotm.UserTransactionFactory\"
+    jotm.timeout=\"60\"/>-->\n                    <Manager pathname=\"\"/>\n                </Context>\n\n
+    \           </Host>\n\n            <Valve className=\"org.apache.catalina.valves.AccessLogValve\"
+    resolveHosts=\"false\"\n                   pattern=\"%a %t &quot;%m %U%q %H&quot;
+    %s %b %D &quot;%{Referer}i&quot; &quot;%{User-Agent}i&quot;\"/>\n\n            <!--
+    StuckThreadDetectionValve added below to print stack traces if a thread has been
+    stuck for 60 seconds -->\n            <Valve className=\"org.apache.catalina.valves.StuckThreadDetectionValve\"
+    threshold=\"60\" />\n        </Engine>\n    </Service>\n</Server>\n"
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: bamboo-server-xml
+  selfLink: /api/v1/namespaces/default/configmaps/bamboo-server-xml
