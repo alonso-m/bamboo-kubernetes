@@ -30,7 +30,7 @@ spec:
           mountPath: "/var/atlassian/application-data/bamboo"
       containers:
       - name: bamboo
-        image: alonsomiguel/arm64v8-bamboo-server:7.0.4
+        image: alonsomiguel/arm64v8-bamboo-server:7.1.1
         imagePullPolicy: "IfNotPresent"
         ports:
         - containerPort: 8085
