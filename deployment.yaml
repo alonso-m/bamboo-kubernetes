@@ -43,6 +43,11 @@ spec:
         - name: bamboo-server-xml
           mountPath: "/opt/atlassian/bamboo/conf/server.xml"
           subPath: "server.xml"
+      tolerations:
+      - key: "node-role.kubernets.io/master"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
       nodeSelector:
         k3s.io/hostname: "node00"
       volumes:
