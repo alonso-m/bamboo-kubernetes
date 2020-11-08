@@ -28,7 +28,7 @@ data:
     \               connectionTimeout=\"20000\"\n                disableUploadTimeout=\"true\"\n
     \               acceptCount=\"100\"\n\n                enableLookups=\"false\"\n
     \               maxHttpHeaderSize=\"8192\"\n\n                useBodyEncodingForURI=\"true\"\n
-    \               URIEncoding=\"UTF-8\"\n\t\tsecure=\"true\"\n\t\tscheme=\"https\"\n\t\tproxyName=\"malonso.me\"\n\t\tproxyPort=\"443\"\n
+    \               URIEncoding=\"UTF-8\"\n\t\tsecure=\"true\"\n\t\tscheme=\"https\"\n\t\tproxyName=\"build.malonso.me\"\n\t\tproxyPort=\"443\"\n
     \               redirectPort=\"443\">\n            <UpgradeProtocol className=\"org.apache.coyote.http2.Http2Protocol\"
     />\n        </Connector>\n        <!--\n        ====================================================================================\n
     \       To run Bamboo via HTTPS:\n             * Uncomment the Connector below\n
@@ -54,7 +54,7 @@ data:
     enableLookups=\"false\" protocol=\"AJP/1.3\" URIEncoding=\"UTF-8\"/>\n        -->\n\n
     \       <Engine name=\"Catalina\" defaultHost=\"localhost\">\n            <Host
     name=\"localhost\" appBase=\"webapps\" unpackWARs=\"true\" autoDeploy=\"true\">\n\n\t\t<Context
-    path=\"/bamboo\" docBase=\"${catalina.home}/atlassian-bamboo\" reloadable=\"false\"
+    path=\"\" docBase=\"${catalina.home}/atlassian-bamboo\" reloadable=\"false\"
     useHttpOnly=\"true\">\n\n                    <!--<Resource name=\"UserTransaction\"
     auth=\"Container\" type=\"javax.transaction.UserTransaction\"-->\n                              <!--factory=\"org.objectweb.jotm.UserTransactionFactory\"
     jotm.timeout=\"60\"/>-->\n                    <Manager pathname=\"\"/>\n                </Context>\n\n

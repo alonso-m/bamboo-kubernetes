@@ -16,4 +16,4 @@ spec:
     - noatime
   nfs:
     path: /zfs/encrypted/application-data/bamboo
-    server: node06
+    server: node00

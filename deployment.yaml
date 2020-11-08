@@ -30,7 +30,7 @@ spec:
           mountPath: "/var/atlassian/application-data/bamboo"
       containers:
       - name: bamboo
-        image: alonsomiguel/arm64v8-bamboo-server:7.1.1
+        image: atlassian/bamboo-server:7.1.4
         imagePullPolicy: "IfNotPresent"
         ports:
         - containerPort: 8085
@@ -44,7 +44,7 @@ spec:
           mountPath: "/opt/atlassian/bamboo/conf/server.xml"
           subPath: "server.xml"
       nodeSelector:
-        k3s.io/hostname: "node03"
+        k3s.io/hostname: "node00"
       volumes:
       - name: bamboo-pv
         persistentVolumeClaim:
