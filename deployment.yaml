@@ -44,7 +44,7 @@ spec:
           mountPath: "/opt/atlassian/bamboo/conf/server.xml"
           subPath: "server.xml"
       tolerations:
-      - key: "node-role.kubernets.io/master"
+      - key: "node-role.kubernetes.io/master"
         operator: "Equal"
         value: "true"
         effect: "NoSchedule"

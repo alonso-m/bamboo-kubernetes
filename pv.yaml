@@ -15,5 +15,5 @@ spec:
     - lookupcache=pos
     - noatime
   nfs:
-    path: /zfs/encrypted/application-data/bamboo
+    path: /mnt/kingston/application-data/bamboo
     server: node00
