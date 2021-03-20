@@ -11,9 +11,10 @@ spec:
     storage: 32Gi
   accessModes:
     - ReadWriteMany
-  mountOptions:
-    - lookupcache=pos
-    - noatime
-  nfs:
+      #  mountOptions:
+      #    - lookupcache=pos
+      #    - noatime
+  hostPath:
+      #  nfs:
     path: /mnt/kingston/application-data/bamboo
-    server: node00
+    #    server: node00
